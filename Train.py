@@ -97,7 +97,7 @@ def main():
             print(f'{processed} texts processed')
 
         y.append(int(row['label']))
-        X.append(ngram_rep(row['text'], row['POS_text'], args.V, n_grams, args.V, pos_n_grams, args.V, word_n_grams))
+        X.append(ngram_rep(row['text'], row[2], args.V, n_grams, args.V, pos_n_grams, args.V, word_n_grams))
 
         processed += 1
 
@@ -125,7 +125,7 @@ def main():
     features = [n_grams, pos_n_grams, word_n_grams]
     pickle.dump(features, open(os.path.join(save_path, 'features.pkl'), 'wb'))
 
-    model = Model(len(X_train[0]), args.num_authors)  # You need to define args.num_authors somewhere
+    model = Model(len(X_train[0]), args.authors_total)  # You need to define args.num_authors somewhere
 
     loss_function = nn.CrossEntropyLoss(weight=torch.Tensor(number_texts).to(device))
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay)
