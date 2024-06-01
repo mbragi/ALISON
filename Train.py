@@ -11,8 +11,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 from sklearn import model_selection
-from Utils import *  # Assuming Utils contains your custom functions like tag(), tokenize(), return_best_n_grams(), etc.
-from NN import *  # Assuming NN contains your custom model definition and training functions
+from Utils import *  
+from NN import * 
 
 def main():
     now = datetime.datetime.now()
