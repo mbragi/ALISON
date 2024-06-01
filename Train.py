@@ -103,7 +103,7 @@ def main():
 
     X = np.array(X)
     y = np.array(y)
-
+    print(args.test_size)
     X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=args.test_size, random_state=1, shuffle=False, stratify=y)
 
     print('------------', '\n', 'Scaling, Loading, and Shuffling Data')
