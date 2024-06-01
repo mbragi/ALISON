@@ -66,9 +66,9 @@ def main():
     pos_total = ''.join(pos_texts)
 
     for _, row in data.iterrows():
-        author = int(row[0])
-        print(author)
-        print(number_texts[author])
+        author = int(row['label'])
+        if author >= len(number_texts):
+            continue # Skip if author index is out of range
         number_texts[author] += 1
         filtered_sentence = row['text'].replace('\n', '').strip()
 
@@ -78,11 +78,11 @@ def main():
     print('------------', '\n', 'Preprocessing complete!')
     print('------------', '\n', 'Generating Char n-grams...')
 
-    n_grams = [return_best_n_grams(n, args.top_ngrams, total) for n in [1, 2, 3, 4]]
+    n_grams = [return_best_n_grams(n, int(args.top_ngrams), total) for n in [1, 2, 3, 4]]
 
     print('------------', '\n', 'Generating POS n-grams...')
 
-    pos_n_grams = [return_best_n_grams(n, args.top_ngrams, pos_total) for n in [1, 2, 3, 4]]
+    pos_n_grams = [return_best_n_grams(n, int(args.top_ngrams), pos_total) for n in [1, 2, 3, 4]]
 
     print('------------', '\n', 'Generating Word n-grams...')
 
