@@ -125,13 +125,13 @@ def main():
     features = [n_grams, pos_n_grams, word_n_grams]
     pickle.dump(features, open(os.path.join(save_path, 'features.pkl'), 'wb'))
 
-    model = Model(len(X_train[0]), args.authors_total)  # You need to define args.num_authors somewhere
-
+    model = Model(len(X_train[0]), int(args.authors_total))  
+    
     loss_function = nn.CrossEntropyLoss(weight=torch.Tensor(number_texts).to(device))
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.step, gamma=args.gamma)
 
-    model = train_and_eval(model, training_set, validation_set, loss_function, optimizer, scheduler, save_path=save_path, EPOCHS=args.epochs, save_epoch=10)
+    model = train_and_eval(model, training_set, validation_set, loss_function, optimizer, scheduler, save_path=save_path, epochs=int(args.epochs), save_epoch=10)
 
     torch.save(model.state_dict(), os.path.join(save_path, 'model.pt'))
 
