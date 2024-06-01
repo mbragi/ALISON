@@ -86,7 +86,7 @@ def main():
 
     print('------------', '\n', 'Generating Word n-grams...')
 
-    word_n_grams = [return_best_word_n_grams(n, args.top_ngrams, tokenize(total)) for n in [1, 2, 3, 4]]
+    word_n_grams = [return_best_word_n_grams(n, int(args.top_ngrams), tokenize(total)) for n in [1, 2, 3, 4]]
 
     print('------------', '\n', 'Generating data...')
     X = []
