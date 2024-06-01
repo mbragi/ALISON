@@ -58,16 +58,17 @@ def main():
     data['POS'] = tag(data['text'])
 
     print('------------', '\n', 'Counting and aggregating texts...')
-    number_texts = [0 for idx in range(args.authors_total)]
-
-    texts = ['' for idx in range(args.authors_total)]
-    pos_texts = ['' for idx in range(args.authors_total)]
+    number_texts = [0 for idx in range(int(args.authors_total))]
+    texts = ['' for idx in range(int(args.authors_total))]
+    pos_texts = ['' for idx in range(int(args.authors_total))]
 
     total = ' '.join(texts)
     pos_total = ''.join(pos_texts)
 
-    for index, row in data.iterrows():
+    for _, row in data.iterrows():
         author = int(row[0])
+        print(author)
+        print(number_texts[author])
         number_texts[author] += 1
         filtered_sentence = row['text'].replace('\n', '').strip()
 
@@ -91,7 +92,7 @@ def main():
     X = []
     y = []
     processed = 0
-    for index, row in data.iterrows():
+    for _, row in data.iterrows():
         if processed % 1000 == 0:
             print(f'{processed} texts processed')
 
