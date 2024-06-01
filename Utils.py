@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import datetime
-
 import copy
 import csv
 import os
@@ -16,15 +15,15 @@ from nltk import skipgrams
 from nltk import pos_tag
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.util import ngrams
+from nltk.corpus import stopwords
+from string import punctuation
+
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('stopwords')
-from string import punctuation
-from nltk.corpus import stopwords
 
 import gc
 from random import random
-import time
 
 from collections import Counter
 import heapq
@@ -151,3 +150,16 @@ def tokenize(text):
     for sent in sent_tokenize(text):
         ret.extend(word_tokenize(sent))
     return ret
+
+import torch
+
+class Loader(torch.utils.data.Dataset):
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, index):
+        return torch.tensor(self.X[index], dtype=torch.float32), torch.tensor(self.y[index], dtype=torch.long)
