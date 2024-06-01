@@ -78,7 +78,7 @@ def train_and_eval(model, training_set, validation_set, loss_function, optimizer
             all_preds = []
             all_labels = []
 
-            with tqdm(training_set, unit = "batch", bar_format = '{l_bar}{bar:20}{r_bar}{bar:-20b}') as tqdm_train:
+            with tqdm.tqdm(training_set, unit = "batch", bar_format = '{l_bar}{bar:20}{r_bar}{bar:-20b}') as tqdm_train:
                 for training_data, labels in tqdm_train:
                     tqdm_train.set_description(f'Epoch: {epoch}')
 
@@ -117,7 +117,7 @@ def train_and_eval(model, training_set, validation_set, loss_function, optimizer
 
         with torch.no_grad():
 
-            with tqdm(validation_set, unit="batch", bar_format = '{l_bar}{bar:20}{r_bar}{bar:-20b}') as tqdm_val:
+            with tqdm.tqdm(validation_set, unit="batch", bar_format = '{l_bar}{bar:20}{r_bar}{bar:-20b}') as tqdm_val:
                 tqdm_val.set_description(f'Epoch: {epoch}')
                 for val_data, labels in tqdm_val:
 
