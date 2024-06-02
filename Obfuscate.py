@@ -54,17 +54,21 @@ def main():
                                     'label' : [int(line[0]) for line in lines]
                                     })
 
+    data['POS'] = tag(data['text'])  # Ensure POS tagging here
+
     features = np.array(pickle.load(open(os.path.join(args.dir, 'features.pkl'), "rb")))
     Scaler= np.array(pickle.load(open(os.path.join(args.dir, 'Scaler.pkl'), "rb")))
     num_char = features[0].size
     num_pos = features[1].size
     features = features.flatten().tolist()
 
+    # print(f"Debug: features.shape = {features.shape}")
+    # print(f"Debug: features = {features}")
+
     ngram_reps = []
     for _, row in data.iterrows():
-        print(f'----- \n {ngram_rep(row[0], row[1], features)}')
-        ngram_reps.append(ngram_rep(row[0], row[1], features))
-    ngram_reps = Scaler.fit_transform(np.array(ngram_reps))
+        ngram_reps.append(ngram_rep(row['text'], row['POS'], features))
+    ngram_reps = Scaler.transform(np.array(ngram_reps))
 
     ig_set = torch.utils.data.DataLoader(Loader(ngram_reps, data['label']), batch_size=1, shuffle=False)
 
