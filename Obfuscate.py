@@ -61,7 +61,8 @@ def main():
     features = features.flatten().tolist()
 
     ngram_reps = []
-    for idx, row in data.iterrows():
+    for _, row in data.iterrows():
+        print(f'----- \n {ngram_rep(row[0], row[1], features)}')
         ngram_reps.append(ngram_rep(row[0], row[1], features))
     ngram_reps = Scaler.fit_transform(np.array(ngram_reps))
 
