@@ -1,15 +1,3 @@
-import os
-import argparse
-import datetime
-import gc
-import pandas as pd
-import numpy as np
-import pickle
-import sklearn
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.utils.data
 from sklearn import model_selection
 from Utils import *  
 from NN import * 
@@ -34,7 +22,7 @@ def main():
     parser.add_argument('--learning_rate', '-lr', help='Learning Rate', default=0.01)
     parser.add_argument('--epochs', '-e', help='Number of Training Epochs', default=30)
     parser.add_argument('--weight_decay', '-wd', help='Weight Decay Constant', default=0.00)
-    parser.add_argument('--momentum', '-m', help='Momentum Constant', default=0.90)
+    parser.add_argument('--momentum', '-m', help='Mo itmentum Constant', default=0.90)
     parser.add_argument('--step', '-s', help='Scheduler Step Size', default=3)
     parser.add_argument('--gamma', '-g', help='Scheduler Gamma Constant', default=0.30)
 
@@ -125,11 +113,11 @@ def main():
     features = [n_grams, pos_n_grams, word_n_grams]
     pickle.dump(features, open(os.path.join(save_path, 'features.pkl'), 'wb'))
 
-    model = Model(len(X_train[0]), int(args.authors_total))  
+    model = Model(len(X_train[0]), int(args.authors_total)) # changed from args.num_authors to args.authors_total
     
     loss_function = nn.CrossEntropyLoss(weight=torch.Tensor(number_texts).to(device))
-    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.step, gamma=args.gamma)
+    optimizer = optim.Adam(model.parameters(), lr=float(args.learning_rate), weight_decay=float(args.weight_decay))
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=int(args.step), gamma=float(args.gamma))
 
     model = train_and_eval(model, training_set, validation_set, loss_function, optimizer, scheduler, save_path=save_path, epochs=int(args.epochs), save_epoch=10)
 
