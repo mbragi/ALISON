@@ -109,7 +109,7 @@ def main():
     pickle.dump(y_train, open(os.path.join(save_path, 'y_train.pkl'), 'wb'))
     pickle.dump(X_test, open(os.path.join(save_path, 'X_test.pkl'), 'wb'))
     pickle.dump(y_test, open(os.path.join(save_path, 'y_test.pkl'), 'wb'))
-
+    pickle.dump(Scaler, open(os.path.join(save_path, 'Scaler.pkl'), 'wb'))
     features = [n_grams, pos_n_grams, word_n_grams]
     pickle.dump(features, open(os.path.join(save_path, 'features.pkl'), 'wb'))
 
