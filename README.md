@@ -37,6 +37,11 @@ Additional arguments for fine-tuning the hyperparms of the training of the n-gra
 python Train.py -h
 ```
 
+#### Sample Training Code
+```
+python Train.py --train Data/TuringBench_1.txt --authors_total 20 --trial_name Turing_Bench_1 --test_size 0.15 --top_ngrams 1000 --V '[1, 2, 3, 4]'
+```
+
 ### For Obfuscation:
 
 ```
@@ -53,6 +58,11 @@ Arguments:
   * --c: c, the length scaling constant (default 1.35)
   * --min_length: The minimum length of POS n-gram to consider for obfuscation (default 1)
   * --ig_steps: Number of steps associated with discrete integral calculation for Integrated Gradients attribution (default 1024)
+
+#### Sample Obfuscation Code
+```
+python Obfuscate.py --texts Data/TuringBench_1.txt --authors_total 20 --dir Trained_Models/Turing_Bench_1_06.02.13.04.09 --trial_name Turing_Bench_1_obfuscate
+```
 
 ## Citation
 ```bibtex

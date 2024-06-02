@@ -148,6 +148,11 @@ def ngram_rep(text, pos_text, features):
     to_ret = []
     ret_idx = 0
 
+    # print(f"Debug: features[0] = {features[0]}")
+    # print(f"Debug: features[1] = {features[1]}")
+    # print(f"Debug: features[2] = {features[2]}")
+    # print(f"Debug: pos_text = {pos_text}")
+
     for idx in range(len(features[0])):
         num_ngrams = len(Counter(ngrams(text, len(features[0][idx][0]))))
 
