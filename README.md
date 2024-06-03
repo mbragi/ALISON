@@ -39,7 +39,7 @@ python Train.py -h
 
 #### Sample Training Code
 ```
-python Train.py --train Data/TuringBench_1.txt --authors_total 20 --trial_name Turing_Bench_1 --test_size 0.15 --top_ngrams 1000 --V '[1, 2, 3, 4]'
+python Train.py --train Data/TuringBench_1.txt --authors_total 20 --trial_name TuringBench_1 --test_size 0.15 --top_ngrams 1000 --V '[1, 2, 3, 4]'
 ```
 
 ### For Obfuscation:
