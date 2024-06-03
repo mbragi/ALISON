@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime
+
 import copy
 import csv
 import os
@@ -15,15 +16,15 @@ from nltk import skipgrams
 from nltk import pos_tag
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.util import ngrams
-from nltk.corpus import stopwords
-from string import punctuation
-
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('stopwords')
+from string import punctuation
+from nltk.corpus import stopwords
 
 import gc
 from random import random
+import time
 
 from collections import Counter
 import heapq
@@ -117,41 +118,10 @@ def return_best_n_grams(n, L, text):
     list_ngrams = heapq.nlargest(L, data.keys(), key=lambda k: data[k])
     return list_ngrams
 
-# def ngram_rep(text, pos_text, features):
-
-#     to_ret = []
-#     ret_idx = 0
-
-#     for idx in range(len(features[0])):
-#         num_ngrams = len(Counter(ngrams(text, len(features[0][idx][0]))))
-
-#         for n_gram in features[0][idx]:
-#             to_ret.append(text.count(''.join(n_gram)) / num_ngrams if num_ngrams != 0 else 0)
-
-#     for idx in range(len(features[1])):
-#         num_pos_ngrams = len(Counter(ngrams(pos_text, len(features[1][idx][0]))))
-
-#         for pos_n_gram in features[1][idx]:
-#             to_ret.append(pos_text.count(''.join(pos_n_gram)) / num_pos_ngrams if num_pos_ngrams != 0 else 0)
-
-#     words = tokenize(text)
-#     spaced_text = ' '.join(words)
-#     for idx in range(len(features[2])):
-#         num_word_ngrams = len(Counter(ngrams(words, len(features[2][idx][0]))))
-
-#         for word_ngram in features[2][idx]:
-#             to_ret.append(spaced_text.count(' '.join(word_ngram)) / num_word_ngrams if num_word_ngrams != 0 else 0)
-
-#     return to_ret
-
 def ngram_rep(text, pos_text, features):
+
     to_ret = []
     ret_idx = 0
-
-    # print(f"Debug: features[0] = {features[0]}")
-    # print(f"Debug: features[1] = {features[1]}")
-    # print(f"Debug: features[2] = {features[2]}")
-    # print(f"Debug: pos_text = {pos_text}")
 
     for idx in range(len(features[0])):
         num_ngrams = len(Counter(ngrams(text, len(features[0][idx][0]))))
@@ -177,20 +147,8 @@ def ngram_rep(text, pos_text, features):
 
 
 def tokenize(text):
+    # print("text  ", text)
     ret = []
     for sent in sent_tokenize(text):
         ret.extend(word_tokenize(sent))
     return ret
-
-import torch
-
-class Loader(torch.utils.data.Dataset):
-    def __init__(self, X, y):
-        self.X = X
-        self.y = y
-
-    def __len__(self):
-        return len(self.X)
-
-    def __getitem__(self, index):
-        return torch.tensor(self.X[index], dtype=torch.float32), torch.tensor(self.y[index], dtype=torch.long)
